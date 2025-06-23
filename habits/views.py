@@ -1,8 +1,9 @@
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import viewsets, generics
+from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAdminUser
 from rest_framework.views import APIView
+
 from habits.models import Habit
 from habits.paginations import ViewUserHabitPagination
 from habits.serializers import HabitSerializer
@@ -47,6 +48,7 @@ from users.permissions import IsOwner
 )
 class HabitsViewSet(viewsets.ModelViewSet):
     """Представление для модели Habit"""
+
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
 
@@ -64,6 +66,7 @@ class HabitsViewSet(viewsets.ModelViewSet):
 
 class UserHabitViewSet(APIView):
     """Представление для получения списка всех привычек пользователя"""
+
     @swagger_auto_schema(responses={200: HabitSerializer()})
     def get(self, request):
         habits = Habit.objects.filter(owner=request.user)

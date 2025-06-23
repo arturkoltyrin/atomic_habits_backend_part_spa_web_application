@@ -1,4 +1,5 @@
 from celery import shared_task
+
 from habits.models import Habit
 from habits.services import send_telegram_message
 
@@ -11,7 +12,8 @@ def send_message_to_user():
         habit.send_indicator -= 1
         if not habit.send_indicator:
             if habit.owner.tg_chat_id:
-                message = f"Сегодня проработаны привычки: {habit.habit}, {habit.time_execution} {habit.place_of_execution}"
+                message = (f"Сегодня проработаны привычки: {habit.habit}, "
+                           f"{habit.time_execution} {habit.place_of_execution}")
                 send_telegram_message(message=message, chat_id=habit.owner.tg_chat_id)
                 habit.send_indicator = habit.periodicity
         habit.save(update_fields=["send_indicator"])

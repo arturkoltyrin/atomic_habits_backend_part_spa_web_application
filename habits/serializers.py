@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from habits.models import Habit
 from habits.validators import (FieldFillingValidator, RelatedHabitValidator,
                                execution_time_validator)
@@ -6,9 +7,9 @@ from habits.validators import (FieldFillingValidator, RelatedHabitValidator,
 
 class HabitSerializer(serializers.ModelSerializer):
     """Сериализатор для модели Habit"""
+
     time_to_complete = serializers.DurationField(
-        validators=[execution_time_validator],
-        required=False
+        validators=[execution_time_validator], required=False
     )
 
     class Meta:
@@ -16,9 +17,7 @@ class HabitSerializer(serializers.ModelSerializer):
         exclude = ("send_indicator",)
         validators = [
             FieldFillingValidator(
-                "reward",
-                "related_habit",
-                "sign_of_a_pleasant_habit"
+                "reward", "related_habit", "sign_of_a_pleasant_habit"
             ),
             RelatedHabitValidator("related_habit"),
         ]

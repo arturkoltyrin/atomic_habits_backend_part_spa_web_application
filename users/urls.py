@@ -13,6 +13,14 @@ router = DefaultRouter()
 router.register(r"users", UserViewSet, basename="users")
 
 urlpatterns = [
-    path('users/token/', TokenObtainPairView.as_view(permission_classes=(AllowAny,)), name='token_obtain_pair'),
-    path('users/token/refresh/', TokenRefreshView.as_view(permission_classes=(AllowAny,)), name='token_refresh'),
+    path(
+        "users/token/",
+        TokenObtainPairView.as_view(permission_classes=(AllowAny,)),
+        name="token_obtain_pair",
+    ),
+    path(
+        "users/token/refresh/",
+        TokenRefreshView.as_view(permission_classes=(AllowAny,)),
+        name="token_refresh",
+    ),
 ] + router.urls

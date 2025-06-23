@@ -1,9 +1,11 @@
 from datetime import timedelta
+
 from rest_framework.validators import ValidationError
 
 
 class FieldFillingValidator:
     """Проверка заполнения полей reward и related_habit"""
+
     def __init__(self, reward, related_habit, sign_of_a_pleasant_habit):
         self.reward = reward
         self.related_habit = related_habit
@@ -20,9 +22,7 @@ class FieldFillingValidator:
             )
         if sign_of_a_pleasant_habit_field:
             if reward_field or related_habit_field:
-                raise ValidationError(
-                    "У приятной привычки не может быть награды"
-                )
+                raise ValidationError("У приятной привычки не может быть награды")
         else:
             if not reward_field and not related_habit_field:
                 raise ValidationError(
@@ -32,6 +32,7 @@ class FieldFillingValidator:
 
 class RelatedHabitValidator:
     """Валидатор для проверки связанной привычки на принадлежность к приятной привычки"""
+
     def __init__(self, related_habit):
         self.related_habit = related_habit
 
